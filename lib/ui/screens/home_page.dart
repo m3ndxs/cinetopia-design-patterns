@@ -1,4 +1,5 @@
 import 'package:design_patterns/ui/components/buttons.dart';
+import 'package:design_patterns/ui/screens/search_movies.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -9,10 +10,10 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       body: Ink(
         decoration: BoxDecoration(
-          gradient: LinearGradient(colors: [
-            Color(0xFF000000),
-            Color(0xFF1D0E44),
-          ], begin: Alignment.topCenter),
+          gradient: LinearGradient(
+            colors: [Color(0xFF000000), Color(0xFF1D0E44)],
+            begin: Alignment.topCenter,
+          ),
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 26),
@@ -29,14 +30,18 @@ class HomePage extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 24),
                   child: Text(
                     "O lugar ideal para buscar, salvar e organizar seus filmes favoritos!",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w700,
-                    ),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                     textAlign: TextAlign.center,
                   ),
                 ),
-                PrimaryButton(),
+                PrimaryButton(
+                  text: "Quero começar!",
+                  icon: Icons.arrow_forward,
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SearchMovies()),
+                  ),
+                ),
               ],
             ),
           ),
