@@ -1,5 +1,5 @@
 import 'package:design_patterns/ui/components/buttons.dart';
-import 'package:design_patterns/ui/screens/search_movies.dart';
+import 'package:design_patterns/ui/screens/dashboard.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -39,7 +39,7 @@ class HomePage extends StatelessWidget {
                   icon: Icons.arrow_forward,
                   onTap: () => Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => SearchMovies()),
+                    MaterialPageRoute(builder: (context) => Dashboard()),
                   ),
                 ),
               ],
