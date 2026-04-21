@@ -1,16 +1,23 @@
-import 'package:design_patterns/app/services/search_movies_service.dart';
+import 'package:design_patterns/app/viewmodels/search_movies_viewmodel.dart';
 import 'package:design_patterns/ui/components/movie_card.dart';
 import 'package:flutter/material.dart';
 
-class SearchMovies extends StatelessWidget {
-  final SearchMoviesService searchMoviesService = SearchMoviesService();
+class SearchMovies extends StatefulWidget {
+  const SearchMovies({super.key});
 
-  SearchMovies({super.key});
+  @override
+  State<SearchMovies> createState() => _SearchMoviesState();
+}
+
+class _SearchMoviesState extends State<SearchMovies> {
+  final SearchMoviesViewmodel viewmodel = SearchMoviesViewmodel();
+
+  final TextEditingController textController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: searchMoviesService.searchMovies(),
+      future: viewmodel.getMovie(textController.text),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return CustomScrollView(
@@ -36,6 +43,11 @@ class SearchMovies extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsetsGeometry.only(bottom: 32),
                   child: TextField(
+                    controller: textController,
+                    onEditingComplete: () {
+                      FocusScope.of(context).unfocus();
+                      setState(() {});
+                    },
                     decoration: InputDecoration(
                       labelText: "Pesquisar",
                       border: OutlineInputBorder(
@@ -47,18 +59,16 @@ class SearchMovies extends StatelessWidget {
               ),
               SliverToBoxAdapter(child: const SizedBox(height: 32)),
               SliverList.builder(
-                itemCount: 10,
+                itemCount: viewmodel.moviesList.length,
                 itemBuilder: (context, index) => Padding(
                   padding: const EdgeInsetsGeometry.only(bottom: 32),
-                  child: MovieCard(),
+                  child: MovieCard(movie: viewmodel.moviesList[index]),
                 ),
               ),
             ],
           );
         } else {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
+          return Center(child: CircularProgressIndicator());
         }
       },
     );
