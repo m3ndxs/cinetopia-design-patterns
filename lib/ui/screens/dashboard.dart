@@ -11,7 +11,7 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   int _currentIndex = 0;
-  final List<Widget> _screens = const <Widget>[SearchMovies(), Releases()];
+  final List<Widget> _screens = <Widget>[SearchMovies(), const Releases()];
 
   void updateIndex(int index) {
     setState(() {
