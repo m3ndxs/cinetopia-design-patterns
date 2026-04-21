@@ -1,5 +1,6 @@
 import 'package:design_patterns/app/viewmodels/search_movies_viewmodel.dart';
 import 'package:design_patterns/ui/components/movie_card.dart';
+import 'package:design_patterns/ui/screens/details_movie.dart';
 import 'package:flutter/material.dart';
 
 class SearchMovies extends StatefulWidget {
@@ -60,9 +61,19 @@ class _SearchMoviesState extends State<SearchMovies> {
               SliverToBoxAdapter(child: const SizedBox(height: 32)),
               SliverList.builder(
                 itemCount: viewmodel.moviesList.length,
-                itemBuilder: (context, index) => Padding(
-                  padding: const EdgeInsetsGeometry.only(bottom: 32),
-                  child: MovieCard(movie: viewmodel.moviesList[index]),
+                itemBuilder: (context, index) => InkWell(
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DetailsMovie(
+                        movie: viewmodel.moviesList[index],
+                      ),
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsetsGeometry.only(bottom: 32),
+                    child: MovieCard(movie: viewmodel.moviesList[index]),
+                  ),
                 ),
               ),
             ],
